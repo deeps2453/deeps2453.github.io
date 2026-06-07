@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deepika Sree A — Physics × AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #05080f;
+      --surface: #0b1020;
+      --border: #1a2540;
+      --accent: #4f9fff;
+      --accent2: #b07cff;
+      --text: #d8e4f8;
+      --muted: #5a6e91;
+      --mono: 'DM Mono', monospace;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'Instrument Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID NOISE BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(79,159,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,159,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(5,8,15,.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: .85rem;
+      color: var(--accent);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 3rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(79,159,255,.12); top: -100px; right: -100px; animation: drift 8s ease-in-out infinite alternate; }
+    .orb-2 { width: 350px; height: 350px; background: rgba(176,124,255,.1); bottom: 0; left: 20%; animation: drift 10s ease-in-out infinite alternate-reverse; }
+
+    @keyframes drift { from { transform: translate(0,0); } to { transform: translate(30px, 30px); } }
+
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--accent);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp .6s .2s forwards;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp .7s .35s forwards;
+    }
+    h1 em { font-style: italic; color: var(--accent2); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp .7s .5s forwards;
+    }
+
+    .hero-badges {
+      display: flex; flex-wrap: wrap; gap: .7rem;
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp .7s .65s forwards;
+    }
+    .badge {
+      font-family: var(--mono);
+      font-size: .73rem;
+      padding: .35rem .9rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+      letter-spacing: .05em;
+    }
+    .badge.hl { border-color: var(--accent); color: var(--accent); }
+
+    .hero-cta {
+      display: flex; gap: 1rem;
+      opacity: 0; animation: fadeUp .7s .8s forwards;
+    }
+    .btn {
+      font-family: var(--mono);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .8rem 2rem;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--accent); color: #05080f; }
+    .btn-primary:hover { background: #77b8ff; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; padding: 6rem 3rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: .75rem;
+      color: var(--accent);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1.2rem; }
+    .about-text p strong { color: var(--text); font-weight: 600; }
+
+    .skills-list { display: flex; flex-direction: column; gap: 1rem; }
+    .skill-row { display: flex; align-items: center; gap: 1rem; }
+    .skill-name { font-family: var(--mono); font-size: .8rem; width: 110px; color: var(--muted); flex-shrink: 0; }
+    .skill-bar { flex: 1; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .skill-fill {
+      height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 1s cubic-bezier(.4,0,.2,1);
+    }
+    .skill-fill.animated { transform: scaleX(1); }
+
+    /* ── EXPERIENCE ── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+    .tl-item {
+      padding-left: 2.5rem; padding-bottom: 3rem; position: relative;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute; left: -4px; top: 6px;
+      width: 9px; height: 9px;
+      border: 1px solid var(--accent);
+      background: var(--bg);
+      border-radius: 50%;
+    }
+    .tl-date {
+      font-family: var(--mono); font-size: .73rem;
+      color: var(--accent); letter-spacing: .1em;
+      margin-bottom: .4rem;
+    }
+    .tl-role { font-size: 1.05rem; font-weight: 600; margin-bottom: .2rem; }
+    .tl-org { font-family: var(--mono); font-size: .8rem; color: var(--muted); margin-bottom: .8rem; }
+    .tl-item ul { list-style: none; }
+    .tl-item ul li {
+      font-size: .9rem; color: var(--muted);
+      padding-left: 1rem; position: relative; margin-bottom: .35rem;
+    }
+    .tl-item ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: .75rem; }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;
+    }
+    .project-card {
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+      border-radius: 4px;
+      background: var(--surface);
+      transition: border-color .2s, transform .2s;
+      cursor: default;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .project-icon {
+      font-size: 1.5rem; margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: var(--serif); font-size: 1.2rem; margin-bottom: .6rem;
+    }
+    .project-desc { font-size: .87rem; color: var(--muted); margin-bottom: 1.2rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .tag {
+      font-family: var(--mono); font-size: .68rem;
+      border: 1px solid var(--border); padding: .2rem .6rem; border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* ── RESEARCH ── */
+    .research-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .research-card {
+      border: 1px solid var(--border);
+      padding: 1.8rem 2rem;
+      border-radius: 4px;
+      background: var(--surface);
+      display: flex; gap: 2rem; align-items: flex-start;
+    }
+    .research-year {
+      font-family: var(--mono); font-size: .78rem;
+      color: var(--accent); width: 60px; flex-shrink: 0; padding-top: .2rem;
+    }
+    .research-body {}
+    .research-title { font-size: 1rem; font-weight: 600; margin-bottom: .4rem; }
+    .research-venue { font-family: var(--mono); font-size: .75rem; color: var(--accent2); margin-bottom: .6rem; }
+    .research-desc { font-size: .87rem; color: var(--muted); }
+    .award-pill {
+      display: inline-block;
+      font-family: var(--mono); font-size: .65rem;
+      background: rgba(79,159,255,.1); border: 1px solid rgba(79,159,255,.3);
+      color: var(--accent); padding: .2rem .6rem; border-radius: 2px;
+      margin-top: .6rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; padding-bottom: 8rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+    .contact-link {
+      font-family: var(--mono); font-size: .82rem;
+      color: var(--muted); text-decoration: none;
+      letter-spacing: .08em;
+      border: 1px solid var(--border);
+      padding: .7rem 1.5rem; border-radius: 2px;
+      transition: all .2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      text-align: center;
+      font-family: var(--mono); font-size: .72rem;
+      color: var(--muted); z-index: 1; position: relative;
+    }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: var(--border); max-width: 1100px; margin: 0 auto; }
+
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .research-card { flex-direction: column; gap: .8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">DS.A</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="max-width:100%;padding-left:10%;padding-right:10%;">
+  <div class="orb-1 hero-orb"></div>
+  <div class="orb-2 hero-orb"></div>
+  <div class="hero-content">
+    <p class="hero-label">M.Sc Physics · ML Engineer · Chennai, India</p>
+    <h1>Deepika Sree<em>.</em>A</h1>
+    <p class="hero-sub">Building AI systems that understand physics — from neural operators for PDEs to Bayesian models for exoplanet populations.</p>
+    <div class="hero-badges">
+      <span class="badge hl">Physics-Informed ML</span>
+      <span class="badge hl">Neural Operators</span>
+      <span class="badge">PyTorch</span>
+      <span class="badge">Scientific Computing</span>
+      <span class="badge">Bayesian Inference</span>
+      <span class="badge">Computer Vision</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#research" class="btn btn-primary">View Research</a>
+      <a href="mailto:deepikasree245@gmail.com" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label">01 — About</p>
+  <h2>Physics meets <em style="font-family:var(--serif);font-style:italic;color:var(--accent2)">machine intelligence</em></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a Physics postgraduate student at Bhaktavatsalam Memorial College for Women, Chennai, working at the intersection of <strong>physical simulation, machine learning, and scientific computing</strong>.</p>
+      <p>My research focuses on making AI systems that genuinely understand physics — not just pattern-match on data, but reason with physical constraints, symmetries, and governing equations.</p>
+      <p>From implementing <strong>Fourier Neural Operators</strong> for PDE solving to building <strong>Bayesian hierarchical models</strong> for 6100+ exoplanet systems, I work where rigorous physics meets scalable computation.</p>
+    </div>
+    <div>
+      <div class="skills-list">
+        <div class="skill-row">
+          <span class="skill-name">Python</span>
+          <div class="skill-bar"><div class="skill-fill" data-width=".95"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">PyTorch</span>
+          <div class="skill-bar"><div class="skill-fill" data-width=".85"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Sci. Computing</span>
+          <div class="skill-bar"><div class="skill-fill" data-width=".88"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Bayesian ML</span>
+          <div class="skill-bar"><div class="skill-fill" data-width=".8"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">MATLAB</span>
+          <div class="skill-bar"><div class="skill-fill" data-width=".72"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Computer Vision</span>
+          <div class="skill-bar"><div class="skill-fill" data-width=".78"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">C++</span>
+          <div class="skill-bar"><div class="skill-fill" data-width=".4"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">02 — Experience</p>
+  <h2>Where I've worked</h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <p class="tl-date">Jun 2025 – Jul 2025</p>
+      <p class="tl-role">Intern – Defense Materials and Testing</p>
+      <p class="tl-org">Heavy Vehicles Factory · Chennai</p>
+      <ul>
+        <li>Spectroscopy, electroplating, heat treatment, and mechanical testing of defense materials</li>
+        <li>Performed uncertainty analysis to improve measurement precision and reliability</li>
+        <li>Studied effluent and waste treatment systems for environmental sustainability</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <p class="tl-date">May 2025 – Jul 2025</p>
+      <p class="tl-role">Student Trainee – Data Analytics & ML</p>
+      <p class="tl-org">BRICS Astronomy & IDIA Data Analytics Program · Remote</p>
+      <ul>
+        <li>Python, data analysis, visualization, and machine learning training</li>
+        <li>Built spectral classification pipeline using k-NN, Decision Tree, and SVM</li>
+        <li>Decision Tree achieved highest classification accuracy on spectral dataset</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <p class="tl-date">Dec 2024 – Jan 2025</p>
+      <p class="tl-role">Research Intern – Nanomaterials</p>
+      <p class="tl-org">Sri Sairam Institute of Technology · Chennai</p>
+      <ul>
+        <li>Nanomaterial synthesis via Solvothermal, Combustion, and Coprecipitation methods</li>
+        <li>Synthesized Zn-doped CuO using Sol-Gel method</li>
+        <li>Characterization using XRD, UV-Vis, SEM, and Origin software</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <p class="tl-date">Jun 2023 – May 2024</p>
+      <p class="tl-role">JEE/NEET Physics Faculty Intern</p>
+      <p class="tl-org">D.A.V Group of Schools · Chennai</p>
+      <ul>
+        <li>Mentored CBSE students for JEE and NEET entrance examinations</li>
+        <li>Taught physics concepts and analytical problem-solving methods</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">03 — Projects</p>
+  <h2>Selected work</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-icon">∿</div>
+      <p class="project-title">Fourier Neural Operator — 2D PDE</p>
+      <p class="project-desc">Implemented FNO with spectral convolution layers operating in frequency domain via 2D FFT for Darcy Flow equation solving. Leverages mesh-independence for generalized PDE solving.</p>
+      <div class="project-tags">
+        <span class="tag">Neural Operators</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">FFT</span>
+        <span class="tag">PDE</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🛣</div>
+      <p class="project-title">Lane Detection System</p>
+      <p class="project-desc">Computer vision pipeline for road lane segmentation and curvature estimation using edge detection, perspective transforms, and polynomial lane fitting. Evaluated under varying illumination conditions.</p>
+      <div class="project-tags">
+        <span class="tag">OpenCV</span>
+        <span class="tag">Python</span>
+        <span class="tag">Computer Vision</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-icon">🚗</div>
+      <p class="project-title">Automatic Number Plate Recognition</p>
+      <p class="project-desc">Python-based CV pipeline to detect and extract Indian vehicle license plates using OpenCV. Integrated OCR and vehicle-registration APIs for automated retrieval.</p>
+      <div class="project-tags">
+        <span class="tag">OCR</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">API Integration</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESEARCH -->
+<section id="research">
+  <p class="section-label">04 — Research</p>
+  <h2>Publications & Presentations</h2>
+  <div class="research-list">
+    <div class="research-card">
+      <span class="research-year">2025–26</span>
+      <div class="research-body">
+        <p class="research-title">The Role of Physics in Space Robotics: Milestones and Advances in Simulation-Based Autonomy</p>
+        <p class="research-venue">YASSC (IIA, IMSc, RRF) · ICTEST 2026 · Published in conference proceedings</p>
+        <p class="research-desc">Explored how physics-based frameworks aid autonomous robotic behavior. Co-authored with Deepavarthini S.</p>
+        <span class="award-pill">🏆 Best Submission — YASSC</span>
+        <span class="award-pill">🏆 Best Paper — ICTEST 2026</span>
+      </div>
+    </div>
+    <div class="research-card">
+      <span class="research-year">2025</span>
+      <div class="research-body">
+        <p class="research-title">A Unified Bayesian Study of Exoplanet Populations</p>
+        <p class="research-venue">FroCAP 2025 (ICFAI Tripura) · NUPC (IISER Tirupati)</p>
+        <p class="research-desc">Bayesian hierarchical and Poisson regression framework analyzing 6100+ exoplanet systems from Kepler and TESS. Studied planet occurrence, stellar metallicity, and survey-dependent observational biases using Python and PyMC.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label" style="text-align:center">05 — Contact</p>
+  <h2>Let's build something <em style="font-family:var(--serif);font-style:italic;color:var(--accent2)">real</em></h2>
+  <p style="color:var(--muted);max-width:480px;margin:0 auto">Open to research collaborations, ML engineering roles, and conversations about physics-informed AI.</p>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:deepikasree245@gmail.com">✉ deepikasree245@gmail.com</a>
+    <a class="contact-link" href="https://linkedin.com/in/deepikasreea" target="_blank">in LinkedIn</a>
+    <a class="contact-link" href="https://github.com/deeps2453" target="_blank">⌥ GitHub</a>
+    <a class="contact-link" href="tel:+917358536738">✆ +91 73585 36738</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Deepika Sree A · Built with HTML/CSS · Hosted on GitHub Pages</span>
+</footer>
+
+<script>
+  // Animate skill bars on scroll
+  const fills = document.querySelectorAll('.skill-fill');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        el.style.width = (parseFloat(el.dataset.width) * 100) + '%';
+        el.classList.add('animated');
+      }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(f => {
+    f.style.width = '0';
+    f.style.transition = 'width 1s cubic-bezier(.4,0,.2,1)';
+    observer.observe(f);
+  });
+</script>
+</body>
+</html>
