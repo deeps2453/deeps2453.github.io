@@ -185,17 +185,91 @@
     .about-text p { color: var(--muted); margin-bottom: 1.2rem; }
     .about-text p strong { color: var(--text); font-weight: 600; }
 
-    .skills-list { display: flex; flex-direction: column; gap: 1rem; }
-    .skill-row { display: flex; align-items: center; gap: 1rem; }
-    .skill-name { font-family: var(--mono); font-size: .8rem; width: 110px; color: var(--muted); flex-shrink: 0; }
-    .skill-bar { flex: 1; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
-    .skill-fill {
-      height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: 2px;
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 1s cubic-bezier(.4,0,.2,1);
+    /* ── RESEARCH INTERESTS ── */
+    .interests-grid {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      margin-top: 2rem;
     }
-    .skill-fill.animated { transform: scaleX(1); }
+    .interest-tag {
+      font-family: var(--mono);
+      font-size: .73rem;
+      padding: .4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text);
+      letter-spacing: .04em;
+      background: rgba(79,159,255,.04);
+      transition: border-color .2s, color .2s;
+    }
+    .interest-tag:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ── SKILLS (categorized, no bars) ── */
+    .skills-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-category {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.2rem 1.4rem;
+      background: var(--surface);
+    }
+    .skill-cat-title {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--accent);
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .skill-chip {
+      font-family: var(--mono);
+      font-size: .7rem;
+      padding: .2rem .55rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+    }
+
+    /* ── EDUCATION ── */
+    .edu-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+    .edu-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.8rem 2rem;
+      background: var(--surface);
+      display: flex; gap: 2rem; align-items: flex-start;
+    }
+    .edu-year {
+      font-family: var(--mono);
+      font-size: .73rem;
+      color: var(--accent);
+      width: 70px; flex-shrink: 0;
+      padding-top: .25rem;
+      line-height: 1.5;
+    }
+    .edu-body {}
+    .edu-degree { font-size: 1rem; font-weight: 600; margin-bottom: .2rem; }
+    .edu-inst { font-family: var(--mono); font-size: .78rem; color: var(--accent2); margin-bottom: .7rem; }
+    .edu-courses {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--muted);
+      margin-bottom: .5rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .edu-tag-row { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .edu-tag {
+      font-family: var(--mono);
+      font-size: .68rem;
+      padding: .2rem .55rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+    }
 
     /* ── EXPERIENCE ── */
     .timeline { position: relative; }
@@ -240,21 +314,33 @@
       background: var(--surface);
       transition: border-color .2s, transform .2s;
       cursor: default;
+      display: flex; flex-direction: column;
     }
     .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
     .project-icon {
-      font-size: 1.5rem; margin-bottom: 1rem;
+      font-size: 1.2rem; margin-bottom: 1rem; color: var(--accent); line-height: 1;
     }
+    .project-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .project-title {
       font-family: var(--serif); font-size: 1.2rem; margin-bottom: .6rem;
     }
-    .project-desc { font-size: .87rem; color: var(--muted); margin-bottom: 1.2rem; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .project-desc { font-size: .87rem; color: var(--muted); margin-bottom: 1.2rem; flex: 1; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
     .tag {
       font-family: var(--mono); font-size: .68rem;
       border: 1px solid var(--border); padding: .2rem .6rem; border-radius: 2px;
       color: var(--muted);
     }
+    .project-links { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: auto; }
+    .project-link {
+      font-family: var(--mono); font-size: .68rem;
+      color: var(--muted); text-decoration: none;
+      border: 1px solid var(--border); padding: .2rem .6rem; border-radius: 2px;
+      transition: border-color .2s, color .2s;
+      letter-spacing: .04em;
+    }
+    .project-link:hover { border-color: var(--accent); color: var(--accent); }
+    .project-link.unavailable { opacity: .4; cursor: default; pointer-events: none; }
 
     /* ── RESEARCH ── */
     .research-list { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -284,12 +370,37 @@
       font-family: var(--mono); font-size: .65rem;
       background: rgba(79,159,255,.1); border: 1px solid rgba(79,159,255,.3);
       color: var(--accent); padding: .2rem .6rem; border-radius: 2px;
-      margin-top: .6rem;
+      margin-top: .6rem; margin-right: .4rem;
     }
+    .research-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .9rem; }
+
+    /* ── CURRENTLY WORKING ON ── */
+    .wip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .wip-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.2rem 1.4rem;
+      background: var(--surface);
+      display: flex; align-items: center; gap: .9rem;
+    }
+    .wip-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(.7); }
+    }
+    .wip-label { font-family: var(--mono); font-size: .78rem; color: var(--muted); }
 
     /* ── CONTACT ── */
     #contact { text-align: center; padding-bottom: 8rem; }
-    .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
     .contact-link {
       font-family: var(--mono); font-size: .82rem;
       color: var(--muted); text-decoration: none;
@@ -299,6 +410,8 @@
       transition: all .2s;
     }
     .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-link.primary { border-color: var(--accent); color: var(--accent); background: rgba(79,159,255,.07); }
+    .contact-link.primary:hover { background: rgba(79,159,255,.15); }
 
     /* ── FOOTER ── */
     footer {
@@ -307,7 +420,10 @@
       text-align: center;
       font-family: var(--mono); font-size: .72rem;
       color: var(--muted); z-index: 1; position: relative;
+      display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;
     }
+    footer span { opacity: .6; }
+    footer .footer-sep { opacity: .3; }
 
     /* ── DIVIDER ── */
     .divider { height: 1px; background: var(--border); max-width: 1100px; margin: 0 auto; }
@@ -319,6 +435,8 @@
       section { padding: 4rem 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .research-card { flex-direction: column; gap: .8rem; }
+      .edu-card { flex-direction: column; gap: .6rem; }
+      .edu-year { width: auto; }
     }
   </style>
 </head>
@@ -328,9 +446,10 @@
   <span class="nav-logo">DS.A</span>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
     <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -370,36 +489,68 @@
       <p>My research focuses on making AI systems that genuinely understand physics — not just pattern-match on data, but reason with physical constraints, symmetries, and governing equations.</p>
       <p>From implementing <strong>Fourier Neural Operators</strong> for PDE solving to building <strong>Bayesian hierarchical models</strong> for 6100+ exoplanet systems, I work where rigorous physics meets scalable computation.</p>
       <p>I'm especially drawn to <strong>self-supervised and unsupervised learning on scientific instrumentation data</strong> — time-series, photometry, and imaging — and to <strong>agentic AI systems for automated scientific discovery</strong>, alongside continued work on neural operators for PDE solving.</p>
+
+      <p style="margin-top:1.8rem;font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;">Research Interests</p>
+      <div class="interests-grid">
+        <span class="interest-tag">Physics-Informed ML</span>
+        <span class="interest-tag">Neural Operators</span>
+        <span class="interest-tag">Scientific Foundation Models</span>
+        <span class="interest-tag">Astronomy ML</span>
+        <span class="interest-tag">Bayesian Inference</span>
+        <span class="interest-tag">Self-supervised Learning</span>
+        <span class="interest-tag">Agentic AI for Science</span>
+        <span class="interest-tag">Scientific Time-Series</span>
+      </div>
     </div>
     <div>
-      <div class="skills-list">
-        <div class="skill-row">
-          <span class="skill-name">Python</span>
-          <div class="skill-bar"><div class="skill-fill" data-width=".95"></div></div>
+      <p style="font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.2rem;">Technical Skills</p>
+      <div class="skills-categories">
+        <div class="skill-category">
+          <p class="skill-cat-title">Languages</p>
+          <div class="skill-chips">
+            <span class="skill-chip">Python</span>
+            <span class="skill-chip">MATLAB</span>
+            <span class="skill-chip">C++ (Basic)</span>
+          </div>
         </div>
-        <div class="skill-row">
-          <span class="skill-name">PyTorch</span>
-          <div class="skill-bar"><div class="skill-fill" data-width=".85"></div></div>
+        <div class="skill-category">
+          <p class="skill-cat-title">Machine Learning</p>
+          <div class="skill-chips">
+            <span class="skill-chip">PyTorch</span>
+            <span class="skill-chip">Scikit-learn</span>
+            <span class="skill-chip">PyMC</span>
+          </div>
         </div>
-        <div class="skill-row">
-          <span class="skill-name">Sci. Computing</span>
-          <div class="skill-bar"><div class="skill-fill" data-width=".88"></div></div>
+        <div class="skill-category">
+          <p class="skill-cat-title">Scientific Computing</p>
+          <div class="skill-chips">
+            <span class="skill-chip">NumPy</span>
+            <span class="skill-chip">Pandas</span>
+            <span class="skill-chip">SciPy</span>
+            <span class="skill-chip">Matplotlib</span>
+            <span class="skill-chip">Seaborn</span>
+          </div>
         </div>
-        <div class="skill-row">
-          <span class="skill-name">Bayesian ML</span>
-          <div class="skill-bar"><div class="skill-fill" data-width=".8"></div></div>
+        <div class="skill-category">
+          <p class="skill-cat-title">Tools</p>
+          <div class="skill-chips">
+            <span class="skill-chip">Git</span>
+            <span class="skill-chip">Docker</span>
+            <span class="skill-chip">Tableau</span>
+            <span class="skill-chip">Origin</span>
+            <span class="skill-chip">Jupyter</span>
+          </div>
         </div>
-        <div class="skill-row">
-          <span class="skill-name">MATLAB</span>
-          <div class="skill-bar"><div class="skill-fill" data-width=".72"></div></div>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">Computer Vision</span>
-          <div class="skill-bar"><div class="skill-fill" data-width=".78"></div></div>
-        </div>
-        <div class="skill-row">
-          <span class="skill-name">C++</span>
-          <div class="skill-bar"><div class="skill-fill" data-width=".4"></div></div>
+        <div class="skill-category" style="grid-column: 1 / -1;">
+          <p class="skill-cat-title">Domains</p>
+          <div class="skill-chips">
+            <span class="skill-chip">Physics-Informed ML</span>
+            <span class="skill-chip">Neural Operators</span>
+            <span class="skill-chip">Bayesian Inference</span>
+            <span class="skill-chip">Scientific Computing</span>
+            <span class="skill-chip">Computer Vision</span>
+            <span class="skill-chip">Spectral Analysis</span>
+          </div>
         </div>
       </div>
     </div>
@@ -408,9 +559,133 @@
 
 <div class="divider"></div>
 
+<!-- RESEARCH -->
+<section id="research">
+  <p class="section-label">02 — Research</p>
+  <h2>Publications &amp; Presentations</h2>
+  <div class="research-list">
+    <div class="research-card">
+      <span class="research-year">2025–26</span>
+      <div class="research-body">
+        <p class="research-title">The Role of Physics in Space Robotics: Milestones and Advances in Simulation-Based Autonomy</p>
+        <p class="research-venue">YASSC (IIA, IMSc, RRF) · ICTEST 2026 · Published in conference proceedings</p>
+        <p class="research-desc">Explored how physics-based frameworks aid autonomous robotic behavior. Co-authored with Deepavarthini S.</p>
+        <div>
+          <span class="award-pill">Best Submission — YASSC</span>
+          <span class="award-pill">Best Paper — ICTEST 2026</span>
+        </div>
+      </div>
+    </div>
+    <div class="research-card">
+      <span class="research-year">2025</span>
+      <div class="research-body">
+        <p class="research-title">A Unified Bayesian Study of Exoplanet Populations</p>
+        <p class="research-venue">FroCAP 2025 (ICFAI Tripura) · NUPC (IISER Tirupati)</p>
+        <p class="research-desc">Developed Bayesian hierarchical and Poisson regression models using PyMC to analyze 6100+ exoplanet systems from Kepler and TESS. Investigated survey-dependent biases, stellar metallicity correlations, circumbinary populations, and scaling laws governing exoplanet distributions.</p>
+        <div class="research-tags">
+          <span class="tag">PyMC</span>
+          <span class="tag">Bayesian ML</span>
+          <span class="tag">Astronomy</span>
+          <span class="tag">Kepler</span>
+          <span class="tag">TESS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">03 — Projects</p>
+  <h2>Selected work</h2>
+  <div class="projects-grid">
+
+    <!-- PINN -->
+    <div class="project-card">
+      <div class="project-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z" stroke-dasharray="4 2"/><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <p class="project-title">Physics-Informed Neural Network for 2D Heat Transfer</p>
+      <p class="project-desc">Implemented a Physics-Informed Neural Network (PINN) in PyTorch to solve the 2D heat equation using collocation points, boundary conditions, and hybrid data-driven training. Benchmarked against Finite Difference Method solvers and performed inverse PDE discovery to estimate thermal diffusivity directly from data.</p>
+      <div class="project-tags">
+        <span class="tag">PINN</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">PDE</span>
+        <span class="tag">Scientific ML</span>
+        <span class="tag">Inverse Problems</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/deeps2453" target="_blank">↗ GitHub</a>
+        <a class="project-link unavailable" href="#">Paper (N/A)</a>
+      </div>
+    </div>
+
+    <!-- FNO -->
+    <div class="project-card">
+      <div class="project-icon">
+        <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12H6M18 12h4"/></svg>
+      </div>
+      <p class="project-title">Fourier Neural Operator — 2D PDE</p>
+      <p class="project-desc">Implemented a Fourier Neural Operator using spectral convolution layers operating in the frequency domain via 2D FFT for solving the Darcy Flow equation. Trained and evaluated on coefficient–solution datasets, leveraging mesh-independent neural operators for generalized PDE solving.</p>
+      <div class="project-tags">
+        <span class="tag">Neural Operators</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">FFT</span>
+        <span class="tag">PDE</span>
+        <span class="tag">Scientific Computing</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/deeps2453" target="_blank">↗ GitHub</a>
+        <a class="project-link unavailable" href="#">Paper (N/A)</a>
+      </div>
+    </div>
+
+    <!-- Lane Detection -->
+    <div class="project-card">
+      <div class="project-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 20L12 4l8 16"/><path d="M12 4v16M8 12h8"/></svg>
+      </div>
+      <p class="project-title">Lane Detection System</p>
+      <p class="project-desc">Computer vision pipeline for road lane segmentation and curvature estimation using edge detection, perspective transforms, and polynomial lane fitting. Evaluated under varying illumination conditions.</p>
+      <div class="project-tags">
+        <span class="tag">OpenCV</span>
+        <span class="tag">Python</span>
+        <span class="tag">Computer Vision</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/deeps2453" target="_blank">↗ GitHub</a>
+        <a class="project-link unavailable" href="#">Demo (N/A)</a>
+      </div>
+    </div>
+
+    <!-- ANPR -->
+    <div class="project-card">
+      <div class="project-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h4M18 10h.01M6 14h12"/></svg>
+      </div>
+      <p class="project-title">Automatic Number Plate Recognition</p>
+      <p class="project-desc">Python-based CV pipeline to detect and extract Indian vehicle license plates using OpenCV. Integrated OCR and vehicle-registration APIs for automated retrieval.</p>
+      <div class="project-tags">
+        <span class="tag">OCR</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">API Integration</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link" href="https://github.com/deeps2453" target="_blank">↗ GitHub</a>
+        <a class="project-link unavailable" href="#">Demo (N/A)</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- EXPERIENCE -->
 <section id="experience">
-  <p class="section-label">02 — Experience</p>
+  <p class="section-label">04 — Experience</p>
   <h2>Where I've worked</h2>
   <div class="timeline">
     <div class="tl-item">
@@ -418,9 +693,8 @@
       <p class="tl-role">Research and Operations Lead</p>
       <p class="tl-org">Starlabs Research Group · Remote</p>
       <ul>
-        <li>Co-lead an independent, student-run research group focused on astronomy-related machine learning projects</li>
-        <li>Members span diverse academic backgrounds, including ECE and Physics</li>
-        <li>Oversee research direction and operational coordination across distributed, cross-disciplinary project teams</li>
+        <li>Co-lead an independent astronomy-focused research group involving students from Physics and ECE backgrounds</li>
+        <li>Coordinate cross-disciplinary machine learning projects and oversee research direction across distributed teams</li>
       </ul>
     </div>
     <div class="tl-item">
@@ -467,40 +741,33 @@
 
 <div class="divider"></div>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <p class="section-label">03 — Projects</p>
-  <h2>Selected work</h2>
-  <div class="projects-grid">
-    <div class="project-card">
-      <div class="project-icon">∿</div>
-      <p class="project-title">Fourier Neural Operator — 2D PDE</p>
-      <p class="project-desc">Implemented FNO with spectral convolution layers operating in frequency domain via 2D FFT for Darcy Flow equation solving. Leverages mesh-independence for generalized PDE solving.</p>
-      <div class="project-tags">
-        <span class="tag">Neural Operators</span>
-        <span class="tag">PyTorch</span>
-        <span class="tag">FFT</span>
-        <span class="tag">PDE</span>
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-label">05 — Education</p>
+  <h2>Academic background</h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2024<br>–<br>2026</div>
+      <div class="edu-body">
+        <p class="edu-degree">M.Sc Physics</p>
+        <p class="edu-inst">Bhaktavatsalam Memorial College for Women, Chennai, India</p>
+        <p class="edu-courses">Relevant Coursework</p>
+        <div class="edu-tag-row">
+          <span class="edu-tag">Spectroscopy</span>
+          <span class="edu-tag">Physics Simulations with Python</span>
+          <span class="edu-tag">Biophysics</span>
+          <span class="edu-tag">Condensed Matter Physics</span>
+          <span class="edu-tag">Nanomaterials &amp; Nanotechnology</span>
+          <span class="edu-tag">AI for Robotics</span>
+          <span class="edu-tag">Industrial Robotics</span>
+        </div>
       </div>
     </div>
-    <div class="project-card">
-      <div class="project-icon">🛣</div>
-      <p class="project-title">Lane Detection System</p>
-      <p class="project-desc">Computer vision pipeline for road lane segmentation and curvature estimation using edge detection, perspective transforms, and polynomial lane fitting. Evaluated under varying illumination conditions.</p>
-      <div class="project-tags">
-        <span class="tag">OpenCV</span>
-        <span class="tag">Python</span>
-        <span class="tag">Computer Vision</span>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-icon">🚗</div>
-      <p class="project-title">Automatic Number Plate Recognition</p>
-      <p class="project-desc">Python-based CV pipeline to detect and extract Indian vehicle license plates using OpenCV. Integrated OCR and vehicle-registration APIs for automated retrieval.</p>
-      <div class="project-tags">
-        <span class="tag">OCR</span>
-        <span class="tag">OpenCV</span>
-        <span class="tag">API Integration</span>
+    <div class="edu-card">
+      <div class="edu-year">2020<br>–<br>2023</div>
+      <div class="edu-body">
+        <p class="edu-degree">B.Sc Physics</p>
+        <p class="edu-inst">Anna Adarsh College for Women, Chennai, India</p>
       </div>
     </div>
   </div>
@@ -508,28 +775,26 @@
 
 <div class="divider"></div>
 
-<!-- RESEARCH -->
-<section id="research">
-  <p class="section-label">04 — Research</p>
-  <h2>Publications & Presentations</h2>
-  <div class="research-list">
-    <div class="research-card">
-      <span class="research-year">2025–26</span>
-      <div class="research-body">
-        <p class="research-title">The Role of Physics in Space Robotics: Milestones and Advances in Simulation-Based Autonomy</p>
-        <p class="research-venue">YASSC (IIA, IMSc, RRF) · ICTEST 2026 · Published in conference proceedings</p>
-        <p class="research-desc">Explored how physics-based frameworks aid autonomous robotic behavior. Co-authored with Deepavarthini S.</p>
-        <span class="award-pill">🏆 Best Submission — YASSC</span>
-        <span class="award-pill">🏆 Best Paper — ICTEST 2026</span>
-      </div>
+<!-- CURRENTLY WORKING ON -->
+<section id="wip">
+  <p class="section-label">06 — Currently Working On</p>
+  <h2>Active directions</h2>
+  <div class="wip-grid">
+    <div class="wip-card">
+      <div class="wip-dot"></div>
+      <span class="wip-label">Physics-Informed Neural Networks for PDEs</span>
     </div>
-    <div class="research-card">
-      <span class="research-year">2025</span>
-      <div class="research-body">
-        <p class="research-title">A Unified Bayesian Study of Exoplanet Populations</p>
-        <p class="research-venue">FroCAP 2025 (ICFAI Tripura) · NUPC (IISER Tirupati)</p>
-        <p class="research-desc">Bayesian hierarchical and Poisson regression framework analyzing 6100+ exoplanet systems from Kepler and TESS. Studied planet occurrence, stellar metallicity, and survey-dependent observational biases using Python and PyMC.</p>
-      </div>
+    <div class="wip-card">
+      <div class="wip-dot"></div>
+      <span class="wip-label">Agentic AI for Scientific Discovery</span>
+    </div>
+    <div class="wip-card">
+      <div class="wip-dot"></div>
+      <span class="wip-label">Astronomy Machine Learning</span>
+    </div>
+    <div class="wip-card">
+      <div class="wip-dot"></div>
+      <span class="wip-label">Scientific Time-Series Analysis</span>
     </div>
   </div>
 </section>
@@ -538,38 +803,30 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <p class="section-label" style="text-align:center">05 — Contact</p>
+  <p class="section-label" style="text-align:center">07 — Contact</p>
   <h2>Let's build something <em style="font-family:var(--serif);font-style:italic;color:var(--accent2)">real</em></h2>
   <p style="color:var(--muted);max-width:480px;margin:0 auto">Open to research collaborations, ML engineering roles, and conversations about physics-informed AI.</p>
   <div class="contact-links">
-    <a class="contact-link" href="mailto:deepikasree245@gmail.com">✉ deepikasree245@gmail.com</a>
-    <a class="contact-link" href="https://linkedin.com/in/deepikasreea" target="_blank">in LinkedIn</a>
+    <a class="contact-link primary" href="deeps2453.github.io" target="_blank">↓ Download CV</a>
     <a class="contact-link" href="https://github.com/deeps2453" target="_blank">⌥ GitHub</a>
+    <a class="contact-link" href="https://linkedin.com/in/deepikasreea" target="_blank">in LinkedIn</a>
+    <a class="contact-link" href="mailto:deepikasree245@gmail.com">✉ deepikasree245@gmail.com</a>
     <a class="contact-link" href="tel:+917358536738">✆ +91 73585 36738</a>
   </div>
 </section>
 
 <footer>
-  <span>© 2026 Deepika Sree A · Built with HTML/CSS · Hosted on GitHub Pages</span>
+  <span>© 2026 Deepika Sree A</span>
+  <span class="footer-sep">·</span>
+  <span>Built with HTML/CSS</span>
+  <span class="footer-sep">·</span>
+  <span>Hosted on GitHub Pages</span>
+  <span class="footer-sep">·</span>
+  <span>Last Updated: 2026</span>
 </footer>
 
 <script>
-  // Animate skill bars on scroll
-  const fills = document.querySelectorAll('.skill-fill');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const el = e.target;
-        el.style.width = (parseFloat(el.dataset.width) * 100) + '%';
-        el.classList.add('animated');
-      }
-    });
-  }, { threshold: 0.3 });
-  fills.forEach(f => {
-    f.style.width = '0';
-    f.style.transition = 'width 1s cubic-bezier(.4,0,.2,1)';
-    observer.observe(f);
-  });
+  // No skill bars — removed animation script
 </script>
 </body>
 </html>
